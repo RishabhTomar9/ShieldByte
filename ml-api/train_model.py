@@ -34,6 +34,6 @@ y_pred = model.predict(X_test)
 accuracy = accuracy_score(y_test, y_pred)
 print(f"Model Accuracy: {accuracy}")
 
-# Save the trained model
-joblib.dump(model, 'model.pkl')
+# Save the trained model in the main folder
+joblib.dump(model, '../model.pkl')
 print("Model saved as model.pkl")

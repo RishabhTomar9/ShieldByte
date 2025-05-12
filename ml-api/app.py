@@ -5,7 +5,7 @@ import os
 app = Flask(__name__)
 
 # Load the pre-trained ML model
-MODEL_PATH = os.path.join(os.path.dirname(__file__), 'model.pkl')
+MODEL_PATH = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'model.pkl')
 model = joblib.load(MODEL_PATH)
 
 @app.route('/predict', methods=['POST'])
