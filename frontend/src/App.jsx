@@ -1,9 +1,15 @@
 import React from 'react'
+import { Route, Routes } from 'react-router-dom'
+import Home from './components/Home'
+
 
 
 const App = () => {
   return (
-    <div className='text-zinc-400 text-4xl h-screen flex items-center justify-center'>hey!! Chamanoo</div>
+    <Routes>
+      <Route path='/' element={<Home />}></Route>
+    </Routes>
+    
   )
 }
 
