@@ -5,18 +5,18 @@ from email.mime.multipart import MIMEMultipart
 def send_email_alert(to_email, subject, message):
     try:
         # Email configuration
-        sender_email = "your_email@example.com"
-        sender_password = "your_password"
+        sender_email = "titmediafusion@gmail.com"  
+        sender_password = "Mediafusion@123##"    
 
-        # Create email message
+        # Create email 
         msg = MIMEMultipart()
         msg['From'] = sender_email
         msg['To'] = to_email
         msg['Subject'] = subject
         msg.attach(MIMEText(message, 'plain'))
 
-        #SMTP server
-        with smtplib.SMTP('smtp.example.com', 587) as server:
+        # Gmail SMTP server
+        with smtplib.SMTP('smtp.gmail.com', 587) as server:  # Correct SMTP server for Gmail
             server.starttls()
             server.login(sender_email, sender_password)
             server.send_message(msg)
@@ -25,6 +25,13 @@ def send_email_alert(to_email, subject, message):
     except Exception as e:
         print(f"Failed to send email alert: {e}")
 
-# Example usage
+# Example usage for suspicious activity
 if __name__ == '__main__':
-    send_email_alert("admin@example.com", "Suspicious Activity Alert", "A suspicious activity has been detected.")
+    # Example suspicious activity detection
+    suspicious_activity_detected = True  
+
+    if suspicious_activity_detected:
+        to_email = "pratul21oklife@gmail.com"
+        subject = "Suspicious Activity Alert"
+        message = "A suspicious activity has been detected in the system. Please review it immediately."
+        send_email_alert(to_email, subject, message)
