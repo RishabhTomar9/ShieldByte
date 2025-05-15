@@ -61,19 +61,20 @@ const ProfilePage = () => {
         className="max-w-4xl w-full bg-white rounded-3xl shadow-xl p-10 flex flex-col md:flex-row gap-12"
       >
         <div className="flex flex-col items-center md:items-start md:w-1/3">
-          <div className="w-40 h-40 rounded-full bg-gradient-to-tr from-[#557a95] to-[#769fcd] flex items-center justify-center text-white text-7xl font-extrabold shadow-lg select-none overflow-hidden">
+          <div className="w-40 h-40 rounded-full bg-gradient-to-tr from-[#557a95] to-[#769fcd] flex items-center justify-center text-white text-7xl font-extrabold shadow-lg select-none overflow-hidden border-4 border-white">
             {profile.picture ? (
               <img
                 src={profile.picture}
-                alt="Profile"
+                alt={`${profile.name}'s profile`}
                 className="w-full h-full object-cover"
+                onError={(e) => {
+                  e.target.onerror = null;
+                  e.target.style.display = "none"; // Hide broken image
+                }}
+                loading="lazy"
               />
             ) : (
-              profile.name
-                .split(" ")
-                .map((n) => n[0])
-                .join("")
-                .toUpperCase()
+              <FaUserCircle className="w-full h-full text-white p-4" />
             )}
           </div>
           <h2 className="mt-6 text-3xl font-semibold text-[#334e68]">{profile.name}</h2>

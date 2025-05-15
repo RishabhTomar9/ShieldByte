@@ -3,6 +3,8 @@ import { auth, provider } from "../firebaseConfig";
 import { signInWithPopup } from "firebase/auth";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { FcGoogle } from "react-icons/fc";
+import { HiShieldCheck } from "react-icons/hi";
 
 const Login = ({ setUser }) => {
   const navigate = useNavigate();
@@ -15,18 +17,15 @@ const Login = ({ setUser }) => {
       const userData = {
         name: displayName,
         email,
-        phone: phoneNumber || "", // Google might not provide phoneNumber
-        picture: photoURL || "", // Add photo URL here
+        phone: phoneNumber || "",
+        picture: photoURL || "",
       };
 
-      // Store in DB
       await axios.post("http://localhost:5000/api/auth/google-login", userData);
 
-      // Store in localStorage
       localStorage.setItem("user", JSON.stringify(userData));
       setUser(userData);
 
-      // Redirect to home
       navigate("/");
     } catch (error) {
       console.error("Login Failed", error);
@@ -34,16 +33,30 @@ const Login = ({ setUser }) => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-400 to-purple-600 text-white p-6">
-      <div className="bg-white text-gray-800 p-10 rounded-3xl shadow-lg text-center max-w-md w-full">
-        <h1 className="text-3xl font-bold mb-4">Welcome to TrustGuard</h1>
-        {/* <p className="mb-6 text-gray-600">Have an account? Log in with Google or Sign up</p> */}
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-black via-zinc-900 to-zinc-800 text-white p-6">
+      <div className="w-full max-w-md rounded-3xl p-10 backdrop-blur-xl bg-white/10 border border-white/20 shadow-2xl text-center">
+        <h1 className="flex items-center justify-center gap-2 text-4xl font-bold tracking-wide text-cyan-300 mb-3">
+          <HiShieldCheck className="text-cyan-400 text-4xl" />
+          TrustGuard
+        </h1>
+
+        <p className="text-sm text-slate-300 mb-8">
+          Authenticate securely with Google
+        </p>
+
         <button
           onClick={handleLogin}
-          className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-full font-semibold transition"
+          className="flex items-center justify-center gap-3 bg-white text-gray-800 px-6 py-3 rounded-full font-semibold text-sm shadow-lg hover:scale-105 hover:shadow-xl transition-transform duration-300 w-full"
         >
-          Login with Google
+          <FcGoogle className="text-xl" />
+          Sign in with Google
         </button>
+
+        <div className="mt-10 text-xs text-slate-400">
+          By continuing, you agree to TrustGuard’s <br />
+          <span className="underline cursor-pointer hover:text-slate-200">Terms of Service</span> and{" "}
+          <span className="underline cursor-pointer hover:text-slate-200">Privacy Policy</span>.
+        </div>
       </div>
     </div>
   );
