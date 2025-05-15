@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const transactionsData = [
   {
@@ -26,6 +27,7 @@ const transactionsData = [
 ];
 
 const Transactions = () => {
+  const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState('');
 
   const filteredTransactions = transactionsData.filter((txn) =>
@@ -34,42 +36,66 @@ const Transactions = () => {
   );
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#153468] via-[#1e4d91] to-[#2e74b5] p-4 sm:p-6">
-      <div className="max-w-7xl mx-auto bg-white bg-opacity-90 rounded-xl shadow-lg p-4 sm:p-8">
-        <h1 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-4 sm:mb-6">Transactions</h1>
-        <div className="mb-4">
+    <div className="min-h-screen bg-gradient-to-br from-[#e0f0ff] via-[#f7fbff] to-white py-10 px-6">
+      {/* Back Button */}
+      <button
+        onClick={() => navigate('/')}
+        className="mb-10 flex items-center active:scale-95 font-semibold cursor-pointer bg-gradient-to-br from-[#153468] via-[#1e4d91] to-[#2e74b5] text-white px-4 py-2 rounded-md shadow-md transition duration-300 hover:bg-[#d1e3f8]"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="h-5 w-5 mr-2"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="#ffff"
+          strokeWidth={2}
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M15 19l-7-7 7-7"
+          />
+        </svg>
+        Back to Home
+      </button>
+
+      <div className="w-full mx-auto bg-white rounded-2xl shadow-xl p-6 sm:p-10">
+        <h1 className="text-3xl font-semibold text-[#153468] mb-6">Transactions</h1>
+
+        <div className="mb-6">
           <input
             type="text"
             placeholder="Search by User or Transaction ID"
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-4 py-3 border border-[#cce0f5] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2e74b5] text-[#153468]"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
         </div>
+
         <div className="overflow-x-auto">
           <table className="min-w-full table-auto">
             <thead>
-              <tr className="bg-gray-200">
-                <th className="px-4 py-2 text-left text-sm font-medium text-gray-700">Transaction ID</th>
-                <th className="px-4 py-2 text-left text-sm font-medium text-gray-700">User</th>
-                <th className="px-4 py-2 text-left text-sm font-medium text-gray-700">Amount</th>
-                <th className="px-4 py-2 text-left text-sm font-medium text-gray-700">Date</th>
-                <th className="px-4 py-2 text-left text-sm font-medium text-gray-700">Status</th>
+              <tr className="bg-[#d1e3f8]">
+                <th className="px-6 py-3 text-left text-sm font-semibold text-[#1e4d91]">Transaction ID</th>
+                <th className="px-6 py-3 text-left text-sm font-semibold text-[#1e4d91]">User</th>
+                <th className="px-6 py-3 text-left text-sm font-semibold text-[#1e4d91]">Amount</th>
+                <th className="px-6 py-3 text-left text-sm font-semibold text-[#1e4d91]">Date</th>
+                <th className="px-6 py-3 text-left text-sm font-semibold text-[#1e4d91]">Status</th>
               </tr>
             </thead>
             <tbody>
               {filteredTransactions.map((txn) => (
                 <tr
                   key={txn.id}
-                  className="hover:bg-blue-100 transition duration-300 ease-in-out"
+                  className="hover:bg-[#f0faff] transition duration-300 ease-in-out cursor-default"
                 >
-                  <td className="px-4 py-2 text-sm text-gray-800">{txn.id}</td>
-                  <td className="px-4 py-2 text-sm text-gray-800">{txn.user}</td>
-                  <td className="px-4 py-2 text-sm text-gray-800">${txn.amount.toFixed(2)}</td>
-                  <td className="px-4 py-2 text-sm text-gray-800">{txn.date}</td>
-                  <td className="px-4 py-2 text-sm">
+                  <td className="px-6 py-4 text-sm text-[#153468]">{txn.id}</td>
+                  <td className="px-6 py-4 text-sm text-[#153468]">{txn.user}</td>
+                  <td className="px-6 py-4 text-sm text-[#153468]">${txn.amount.toFixed(2)}</td>
+                  <td className="px-6 py-4 text-sm text-[#153468]">{txn.date}</td>
+                  <td className="px-6 py-4 text-sm">
                     <span
-                      className={`px-2 py-1 rounded-full text-xs font-semibold transition duration-300 ease-in-out ${
+                      className={`px-3 py-1 rounded-full text-xs font-semibold transition duration-300 ease-in-out ${
                         txn.status === 'Success'
                           ? 'bg-green-100 text-green-800 animate-pulse'
                           : txn.status === 'Pending'
@@ -84,7 +110,7 @@ const Transactions = () => {
               ))}
               {filteredTransactions.length === 0 && (
                 <tr>
-                  <td colSpan="5" className="px-4 py-2 text-center text-gray-500">
+                  <td colSpan="5" className="px-6 py-4 text-center text-[#1e4d91] font-semibold">
                     No transactions found.
                   </td>
                 </tr>

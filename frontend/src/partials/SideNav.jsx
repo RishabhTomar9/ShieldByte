@@ -9,13 +9,14 @@ import {
   FaSignOutAlt,
   FaBars,
 } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
 
 const menuItemsTop = [
-  { label: 'Overview', icon: <FaHome /> },
+  { label: 'Overview', icon: <FaHome />, Link: '/' },
   { label: 'Message', icon: <FaEnvelope /> },
-  { label: 'Analytics', icon: <FaChartBar /> },
-  { label: 'Transaction', icon: <FaCreditCard /> },
-  { label: 'Profile', icon: <FaUser /> },
+  { label: 'Analytics', icon: <FaChartBar />, Link: '/analytics' },
+  { label: 'Transaction', icon: <FaCreditCard />, Link: '/transactions' },
+  { label: 'Profile', icon: <FaUser /> , Link: '/profile' },
 ];
 
 const menuItemsBottom = [
@@ -25,6 +26,7 @@ const menuItemsBottom = [
 
 const SideNav = () => {
   const [isOpen, setIsOpen] = useState(true);
+  const navigate = useNavigate();
 
   return (
     <div
@@ -53,6 +55,11 @@ const SideNav = () => {
           {menuItemsTop.map((item, index) => (
             <li
               key={index}
+              onClick={() => {
+                if (item.Link) {
+                  navigate(item.Link);
+                }
+              }}
               className="group relative flex items-center text-white text-sm py-2 px-3 rounded-md cursor-pointer transition-all duration-300 hover:bg-white/10"
             >
               {/* Left hover bar */}
