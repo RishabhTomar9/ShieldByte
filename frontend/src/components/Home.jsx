@@ -8,6 +8,7 @@ const Home = () => {
   
     <div className='h-screen w-screen bg-white'>
       <SideNav />
+        
     </div>
   
   )
