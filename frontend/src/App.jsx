@@ -3,6 +3,9 @@ import { useEffect, useState } from "react";
 import Login from "./components/Login";
 import ProfilePage from "./components/ProfilePage";
 import ProtectedRoute from "./components/ProtectedRoute";
+import Transactions from "./components/Transactions";
+import AnalyticsPage from "./components/AnalyticsPage";
+
 import Home from "./components/Home";
 
 function App() {
@@ -35,6 +38,11 @@ function App() {
         }
       />
       <Route path="*" element={<Navigate to="/" />} />
+      <Route path="/transactions" element={<Transactions />}></Route>
+      <Route path="/analytics" element={<AnalyticsPage
+      />}></Route>
+   
+      
     </Routes>
   );
 }
