@@ -16,7 +16,7 @@ const menuItemsTop = [
   { label: 'Message', icon: <FaEnvelope /> },
   { label: 'Analytics', icon: <FaChartBar />, Link: '/analytics' },
   { label: 'Transaction', icon: <FaCreditCard />, Link: '/transactions' },
-  { label: 'Profile', icon: <FaUser /> , Link: '/profile' },
+  { label: 'Profile', icon: <FaUser />, Link: '/profile' },
 ];
 
 const menuItemsBottom = [
@@ -27,6 +27,15 @@ const menuItemsBottom = [
 const SideNav = () => {
   const [isOpen, setIsOpen] = useState(true);
   const navigate = useNavigate();
+
+  const handleClick = (item) => {
+    if (item.label === 'Log Out') {
+      localStorage.clear(); // Or use localStorage.removeItem('token') if needed
+      navigate('/login');   // Redirect to login
+    } else if (item.Link) {
+      navigate(item.Link);
+    }
+  };
 
   return (
     <div
@@ -55,14 +64,9 @@ const SideNav = () => {
           {menuItemsTop.map((item, index) => (
             <li
               key={index}
-              onClick={() => {
-                if (item.Link) {
-                  navigate(item.Link);
-                }
-              }}
+              onClick={() => handleClick(item)}
               className="group relative flex items-center text-white text-sm py-2 px-3 rounded-md cursor-pointer transition-all duration-300 hover:bg-white/10"
             >
-              {/* Left hover bar */}
               <span className="absolute left-0 top-0 h-full w-1 bg-white rounded-r-full scale-y-0 group-hover:scale-y-100 transition-transform duration-300 origin-top"></span>
 
               <div className="flex items-center w-full space-x-4">
@@ -91,6 +95,7 @@ const SideNav = () => {
         {menuItemsBottom.map((item, index) => (
           <li
             key={index}
+            onClick={() => handleClick(item)}
             className="group relative flex items-center text-white text-sm py-2 px-3 rounded-md cursor-pointer transition-all duration-300 hover:bg-white/10"
           >
             <span className="absolute left-0 top-0 h-full w-1 bg-white rounded-r-full scale-y-0 group-hover:scale-y-100 transition-transform duration-300 origin-top"></span>

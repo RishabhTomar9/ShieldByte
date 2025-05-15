@@ -15,7 +15,7 @@ const Login = ({ setUser }) => {
       const userData = {
         name: displayName,
         email,
-        phone: phoneNumber || "Not Provided", // Google might not provide phoneNumber
+        phone: phoneNumber || "", // Google might not provide phoneNumber
         picture: photoURL || "", // Add photo URL here
       };
 

@@ -9,7 +9,7 @@ const ProfilePage = () => {
     name: "",
     email: "",
     phone: "",
-    role: "User",
+    role: "",
     picture: "",
   });
   const [isEditing, setIsEditing] = useState(false);
@@ -21,7 +21,7 @@ const ProfilePage = () => {
         name: userData.name || "",
         email: userData.email || "",
         phone: userData.phone || "",
-        role: userData.role || "User",
+        role: userData.role || "",
         picture: userData.picture || "", // photo URL here
       });
     } else {
@@ -100,39 +100,38 @@ const ProfilePage = () => {
 
           <form onSubmit={handleSubmit} className="space-y-8">
             {["name", "email", "phone", "role"].map((field) => (
-              <motion.div
-                key={field}
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5 }}
-                className="flex flex-col"
-              >
-                <label
-                  htmlFor={field}
-                  className="mb-3 font-semibold text-[#2f4667] capitalize tracking-wide"
+                <motion.div
+                  key={field}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.5 }}
+                  className="flex flex-col"
                 >
-                  {field}
-                </label>
-                {isEditing ? (
-                  <input
-                    type={field === "email" ? "email" : "text"}
-                    name={field}
-                    id={field}
-                    value={profile[field]}
-                    onChange={handleChange}
-                    disabled={field === "role"}
-                    pattern={field === "phone" ? "[0-9]{10}" : undefined}
-                    className={`border rounded-xl px-5 py-3 text-lg text-[#223343] focus:outline-none focus:ring-3 focus:ring-[#557a95] transition shadow-sm ${
-                      field === "role" ? "bg-gray-100 cursor-not-allowed" : "border-[#aac8f4]"
-                    }`}
-                    required
-                  />
-                ) : (
-                  <p className="text-lg bg-[#f5f9ff] rounded-xl px-5 py-3">{profile[field]}</p>
-                )}
-              </motion.div>
-            ))}
-
+                  <label
+                    htmlFor={field}
+                    className="mb-3 font-semibold text-[#2f4667] capitalize tracking-wide"
+                  >
+                    {field}
+                  </label>
+                  {isEditing ? (
+                    <input
+                      type={field === "email" ? "email" : "text"}
+                      name={field}
+                      id={field}
+                      value={profile[field]}
+                      onChange={handleChange}
+                      pattern={field === "phone" ? "[0-9]{10}" : undefined}
+                      placeholder={`Enter your ${field}`}
+                      className="border border-[#aac8f4] rounded-xl px-5 py-3 text-lg text-[#223343] focus:outline-none focus:ring-3 focus:ring-[#557a95] transition shadow-sm"
+                      required
+                    />
+                  ) : (
+                     <p className="text-lg bg-[#f5f9ff] rounded-xl px-5 py-3">
+                      {profile[field] || (field === "phone" ? "Enter Your Phone number" : field === "role" ? "Role" : "")}
+                    </p>
+                  )}
+                </motion.div>
+              ))}
             {isEditing && (
               <motion.button
                 type="submit"

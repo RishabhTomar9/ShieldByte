@@ -66,10 +66,23 @@ const Dashboard = () => {
               <FaBell size={20} />
             </button>
             <div
-              className=" items-center space-x-3 cursor-pointer hidden md:block"
+              className="relative group cursor-pointer hidden md:block"
               onClick={() => navigate('/profile')}
             >
-              <FaUserCircle size={30} className="text-gray-700" />
+              {JSON.parse(localStorage.getItem("user"))?.picture ? (
+                <img
+                  src={JSON.parse(localStorage.getItem("user")).picture}
+                  alt="Profile"
+                  className="w-8 h-8 rounded-full object-cover border border-gray-300"
+                />
+              ) : (
+                <FaUserCircle size={30} className="text-gray-700" />
+              )}
+            
+              {/* Hover Text */}
+              <div className="absolute left-1/2 transform -translate-x-1/2 mt-2 opacity-0 group-hover:opacity-100 transition bg-black text-white text-xs rounded-md px-2 py-1 whitespace-nowrap z-10">
+                Profile
+              </div>
             </div>
           </div>
         </div>
